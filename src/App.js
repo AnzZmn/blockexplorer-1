@@ -1,15 +1,17 @@
-import { Alchemy, Network } from 'alchemy-sdk';
-import { useEffect, useState } from 'react';
+import React from 'react';
 
-import './App.css';
+
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Blocks from './Blocks';
+import Transactions from './Transactions';
+import Navigation from './Navigation';
+import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/esm/Col';
 
 // Refer to the README doc for more information about using API
 // keys in client-side code. You should never do this in production
 // level code.
-const settings = {
-  apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
-  network: Network.ETH_MAINNET,
-};
 
 
 // In this week's lessons we used ethers.js. Here we are using the
@@ -17,20 +19,22 @@ const settings = {
 //
 // You can read more about the packages here:
 //   https://docs.alchemy.com/reference/alchemy-sdk-api-surface-overview#api-surface
-const alchemy = new Alchemy(settings);
 
 function App() {
-  const [blockNumber, setBlockNumber] = useState();
+  return (<div className='container'>
+    <Navigation></Navigation>
+    <Row>
+      <Col>
+    <Blocks></Blocks>
+    </Col>
+    <Col>
+    <Transactions></Transactions>
+    </Col>
+    </Row>
 
-  useEffect(() => {
-    async function getBlockNumber() {
-      setBlockNumber(await alchemy.core.getBlockNumber());
-    }
+    </div>
 
-    getBlockNumber();
-  });
-
-  return <div className="App">Block Number: {blockNumber}</div>;
+  )
 }
 
 export default App;
